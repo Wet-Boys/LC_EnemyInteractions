@@ -1,0 +1,13 @@
+{
+  "References": [
+    "Assembly-CSharp.dll",
+    "Unity.InputSystem.dll",
+    "Unity.Netcode.Runtime.dll"
+  ],
+  "AssetBundles": [],
+  "ProjectFile": "./GemumoddoLcDevTools/GemumoddoLcDevTools.csproj",
+  "UnityDir": "./Unity-LcDevTools/",
+  "ManifestAuthor": "Gemumoddo",
+  "NetcodePatcherRelease": "2.4.0",
+  "LethalEmotesApiVersion": "1.2.4"
+}
