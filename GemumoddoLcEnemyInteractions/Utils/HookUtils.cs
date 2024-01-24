@@ -3,7 +3,7 @@ using System.Reflection;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 
-namespace GemumoddoLcDevTools.Utils;
+namespace EnemyInteractions.Utils;
 
 internal static class HookUtils
 {

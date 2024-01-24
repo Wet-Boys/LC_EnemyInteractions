@@ -5,7 +5,7 @@
     "Unity.Netcode.Runtime.dll"
   ],
   "AssetBundles": [],
-  "ProjectFile": "./GemumoddoLcDevTools/GemumoddoLcDevTools.csproj",
+  "ProjectFile": "./GemumoddoLcEnemyInteractions/EnemyInteractions.csproj",
   "UnityDir": "./Unity-LcDevTools/",
   "ManifestAuthor": "Gemumoddo",
   "NetcodePatcherRelease": "2.4.0",

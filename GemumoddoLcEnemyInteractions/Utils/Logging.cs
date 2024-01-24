@@ -1,7 +1,7 @@
 ﻿using BepInEx.Logging;
 using UnityEngine;
 
-namespace GemumoddoLcDevTools.Utils;
+namespace EnemyInteractions.Utils;
 
 internal static class Logging
 {
@@ -20,7 +20,7 @@ internal static class Logging
     {
         if (_logSource is null)
         {
-            Debug.LogError($"[{GemumoddoLcDevToolsPlugin.ModName}] [Error] {msg}");
+            Debug.LogError($"[{EnemyInteractionsPlugin.ModName}] [Error] {msg}");
         }
         else
         {
@@ -32,7 +32,7 @@ internal static class Logging
     {
         if (_logSource is null)
         {
-            Debug.LogWarning($"[{GemumoddoLcDevToolsPlugin.ModName}] [Warning] {msg}");
+            Debug.LogWarning($"[{EnemyInteractionsPlugin.ModName}] [Warning] {msg}");
         }
         else
         {
@@ -44,7 +44,7 @@ internal static class Logging
     {
         if (_logSource is null)
         {
-            Debug.Log($"[{GemumoddoLcDevToolsPlugin.ModName}] [Info] {msg}");
+            Debug.Log($"[{EnemyInteractionsPlugin.ModName}] [Info] {msg}");
         }
         else
         {
