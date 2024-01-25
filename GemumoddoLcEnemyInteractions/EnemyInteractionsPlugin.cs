@@ -23,6 +23,7 @@ public class EnemyInteractionsPlugin : BaseUnityPlugin
         EmoteOptions.onKillEmotes.Add(new EnemyEmote("com.weliveinasociety.badasscompany__Take The L", 3));
         EmoteOptions.onKillEmotes.Add(new EnemyEmote("com.weliveinasociety.badasscompany__Orange Justice", 3));
         EmoteOptions.onKillEmotes.Add(new EnemyEmote("com.weliveinasociety.badasscompany__California Gurls", 6.75f));
+        EmoteOptions.onKillEmotes.Add(new EnemyEmote("com.weliveinasociety.badasscompany__Dabstand", 30));
 
 
         EmoteOptions.intermittentEmoteList.Add(new EnemyEmote("com.weliveinasociety.badasscompany__Gangnam Style", 1));
