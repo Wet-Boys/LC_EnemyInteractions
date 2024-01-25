@@ -31,6 +31,7 @@ public class EnemyInteractionsPlugin : BaseUnityPlugin
         EmoteOptions.intermittentEmoteList.Add(new EnemyEmote("com.weliveinasociety.badasscompany__Club Penguin", 5));
         EmoteOptions.intermittentEmoteList.Add(new EnemyEmote("com.weliveinasociety.badasscompany__DevilSpawn", 6));
         EmoteOptions.intermittentEmoteList.Add(new EnemyEmote("com.weliveinasociety.badasscompany__I NEED A MEDIC BAG", .8f));
-
+        EmoteOptions.intermittentEmoteList.Add(new EnemyEmote("com.weliveinasociety.badasscompany__Float", 1.2f));
+        EmoteOptions.intermittentEmoteList.Add(new EnemyEmote("com.weliveinasociety.badasscompany__Bird", .5f));
     }
 }

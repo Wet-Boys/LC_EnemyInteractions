@@ -44,16 +44,19 @@ namespace EnemyInteractions
                 List<GameObject> hitEnemies = GetEnemies.ReturnAllEnemiesInRange(self.gameObject, 30f);
                 foreach (var item in hitEnemies)
                 {
-                    BoneMapper mapper = BoneMapper.playersToMappers[item];
-                    if (!mapper.emoteSkeletonAnimator.enabled)
+                    if (BoneMapper.playersToMappers.ContainsKey(item))
                     {
-                        mapper.preserveProps = true;
-                        EnemyEmote emote = EmoteOptions.onKillEmotes[UnityEngine.Random.Range(0, EmoteOptions.onKillEmotes.Count)];
-                        GameObject g = new GameObject();
-                        EmoteStopper stopper = g.AddComponent<EmoteStopper>();
-                        stopper.StartCoroutine(stopper.StopEmoteAfterTime(mapper, emote.maxDuration));
-                        mapper.props.Add(g);
-                        CustomEmotesAPI.PlayAnimation(emote.animationName, mapper);
+                        BoneMapper mapper = BoneMapper.playersToMappers[item];
+                        if (!mapper.emoteSkeletonAnimator.enabled)
+                        {
+                            mapper.preserveProps = true;
+                            EnemyEmote emote = EmoteOptions.onKillEmotes[UnityEngine.Random.Range(0, EmoteOptions.onKillEmotes.Count)];
+                            GameObject g = new GameObject();
+                            EmoteStopper stopper = g.AddComponent<EmoteStopper>();
+                            stopper.StartCoroutine(stopper.StopEmoteAfterTime(mapper, emote.maxDuration));
+                            mapper.props.Add(g);
+                            CustomEmotesAPI.PlayAnimation(emote.animationName, mapper);
+                        }
                     }
                 }
             }

@@ -41,7 +41,7 @@ namespace EnemyInteractions.Components
                 var nearbyEnemies = GetEnemies.ReturnAllEnemiesInRange(personalAI.gameObject, 15f);
                 foreach (var item in nearbyEnemies)
                 {
-                    if (item == personalAI.gameObject)
+                    if (item == personalAI.gameObject || !BoneMapper.playersToMappers.ContainsKey(item))
                     {
                         continue;
                     }
@@ -56,7 +56,7 @@ namespace EnemyInteractions.Components
         }
         internal IEnumerator PlayEmotesRandomly()
         {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(10, 20));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(60, 120));
             if (!skipNextRandomPlay)
             {
                 EnemyEmote emote = EmoteOptions.intermittentEmoteList[UnityEngine.Random.Range(0, EmoteOptions.intermittentEmoteList.Count)];
