@@ -18,6 +18,10 @@ namespace EnemyInteractions.Components
         public IEnumerator SetupRandomEmotes(EnemyAI self)
         {
             yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();//just to be safe lol
             if (BoneMapper.playersToMappers.ContainsKey(self.gameObject))
             {
                 BoneMapper b = BoneMapper.playersToMappers[self.gameObject];

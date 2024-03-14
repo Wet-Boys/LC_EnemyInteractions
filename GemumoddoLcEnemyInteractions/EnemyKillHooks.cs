@@ -39,26 +39,33 @@ namespace EnemyInteractions
         }
         private static void OnKillPlayer(Action<PlayerControllerB, Vector3, bool, CauseOfDeath, int> orig, PlayerControllerB self, Vector3 bodyVelocity, bool spawnBody = true, CauseOfDeath causeOfDeath = CauseOfDeath.Unknown, int deathAnimation = 0)
         {
-            if (CustomEmotesAPI.localMapper.isServer)
+            try
             {
-                List<GameObject> hitEnemies = GetEnemies.ReturnAllEnemiesInRange(self.gameObject, 30f);
-                foreach (var item in hitEnemies)
+                if (CustomEmotesAPI.localMapper.isServer && UnityEngine.Random.Range(0f, 100f) < EnemyInteractionSettings.OnKillEmoteChance.Value)
                 {
-                    if (BoneMapper.playersToMappers.ContainsKey(item))
+                    List<GameObject> hitEnemies = GetEnemies.ReturnAllEnemiesInRange(self.gameObject, 30f);
+                    foreach (var item in hitEnemies)
                     {
-                        BoneMapper mapper = BoneMapper.playersToMappers[item];
-                        if (!mapper.emoteSkeletonAnimator.enabled)
+                        if (BoneMapper.playersToMappers.ContainsKey(item))
                         {
-                            mapper.preserveProps = true;
-                            EnemyEmote emote = EmoteOptions.onKillEmotes[UnityEngine.Random.Range(0, EmoteOptions.onKillEmotes.Count)];
-                            GameObject g = new GameObject();
-                            EmoteStopper stopper = g.AddComponent<EmoteStopper>();
-                            stopper.StartCoroutine(stopper.StopEmoteAfterTime(mapper, emote.maxDuration));
-                            mapper.props.Add(g);
-                            CustomEmotesAPI.PlayAnimation(emote.animationName, mapper);
+                            BoneMapper mapper = BoneMapper.playersToMappers[item];
+                            if (!mapper.emoteSkeletonAnimator.enabled)
+                            {
+                                mapper.preserveProps = true;
+                                EnemyEmote emote = EmoteOptions.onKillEmotes[UnityEngine.Random.Range(0, EmoteOptions.onKillEmotes.Count)];
+                                GameObject g = new GameObject();
+                                EmoteStopper stopper = g.AddComponent<EmoteStopper>();
+                                stopper.StartCoroutine(stopper.StopEmoteAfterTime(mapper, emote.maxDuration));
+                                mapper.props.Add(g);
+                                CustomEmotesAPI.PlayAnimation(emote.animationName, mapper);
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception)
+            {
+                DebugClass.Log($"couldn't play on kill effects properly for EnemyInteractions");
             }
             orig(self, bodyVelocity, spawnBody, causeOfDeath, deathAnimation);
         }

@@ -56,7 +56,8 @@ namespace EnemyInteractions.Components
         }
         internal IEnumerator PlayEmotesRandomly()
         {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(60, 120));
+            float seconds = UnityEngine.Random.Range(EnemyInteractionSettings.RandomEmoteFrequencyMinimum.Value, EnemyInteractionSettings.RandomEmoteFrequencyMaximum.Value);
+            yield return new WaitForSeconds(seconds);
             if (!skipNextRandomPlay)
             {
                 EnemyEmote emote = EmoteOptions.intermittentEmoteList[UnityEngine.Random.Range(0, EmoteOptions.intermittentEmoteList.Count)];
