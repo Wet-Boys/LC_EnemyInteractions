@@ -15,9 +15,11 @@ public class EnemyInteractionsPlugin : BaseUnityPlugin
 {
     public const string ModGuid = "com.gemumoddo.enemyinteractions";
     public const string ModName = "Enemy Interactions";
-    public const string ModVersion = "1.1.1";
+    public const string ModVersion = "1.1.2";
+    public static EnemyInteractionsPlugin instance;
     private void Awake()
     {
+        instance = this;
         Logging.SetLogSource(Logger);
         EnemyKillHooks.InitHooks();
         EnemyInteractionSettings.Setup();
