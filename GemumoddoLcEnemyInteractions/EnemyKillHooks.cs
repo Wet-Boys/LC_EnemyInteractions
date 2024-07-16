@@ -52,7 +52,7 @@ namespace EnemyInteractions
             {
             }
         }
-        private static void OnKillPlayer(Action<PlayerControllerB, Vector3, bool, CauseOfDeath, int> orig, PlayerControllerB self, Vector3 bodyVelocity, bool spawnBody = true, CauseOfDeath causeOfDeath = CauseOfDeath.Unknown, int deathAnimation = 0)
+        private static void OnKillPlayer(Action<PlayerControllerB, Vector3, bool, CauseOfDeath, int, Vector3> orig, PlayerControllerB self, Vector3 bodyVelocity, bool spawnBody = true, CauseOfDeath causeOfDeath = CauseOfDeath.Unknown, int deathAnimation = 0, Vector3 positionOffset = default(Vector3))
         {
             try
             {
@@ -139,7 +139,7 @@ namespace EnemyInteractions
             {
                 DebugClass.Log($"couldn't play on kill effects properly for EnemyInteractions");
             }
-            orig(self, bodyVelocity, spawnBody, causeOfDeath, deathAnimation);
+            orig(self, bodyVelocity, spawnBody, causeOfDeath, deathAnimation, positionOffset);
         }
     }
 }
