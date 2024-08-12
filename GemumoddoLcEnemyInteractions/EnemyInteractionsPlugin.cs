@@ -15,7 +15,7 @@ public class EnemyInteractionsPlugin : BaseUnityPlugin
 {
     public const string ModGuid = "com.gemumoddo.enemyinteractions";
     public const string ModName = "Enemy Interactions";
-    public const string ModVersion = "1.1.3";
+    public const string ModVersion = "1.1.5";
     public static EnemyInteractionsPlugin instance;
     private void Awake()
     {

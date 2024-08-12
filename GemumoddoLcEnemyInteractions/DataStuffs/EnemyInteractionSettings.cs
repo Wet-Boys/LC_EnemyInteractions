@@ -32,6 +32,28 @@ namespace EnemyInteractions.DataStuffs
         public static ConfigEntry<bool> earthLeviathanEmote;
         public static ConfigEntry<bool> baboonHawkEmote;
 
+
+        public static ConfigEntry<bool> shyGuyEmote;
+        public static ConfigEntry<bool> skibidiToiletEmote;
+        public static ConfigEntry<bool> demoGorgonEmote;
+        public static ConfigEntry<bool> peeperEmote;
+        public static ConfigEntry<bool> radMechEmote;
+        public static ConfigEntry<bool> butlerEmote;
+        public static ConfigEntry<bool> tulipSnakeEmote;
+        public static ConfigEntry<bool> harpGhostEmote;
+        public static ConfigEntry<bool> enforcerGhostEmote;
+        public static ConfigEntry<bool> bagpipeGhostEmote;
+        public static ConfigEntry<bool> slendermanEmote;
+        public static ConfigEntry<bool> redWoodGiantEmote;
+        public static ConfigEntry<bool> driftWoodGiantEmote;
+        public static ConfigEntry<bool> foxyEmote;
+        public static ConfigEntry<bool> theFiendEmote;
+        public static ConfigEntry<bool> sirenHeadEmote;
+        public static ConfigEntry<bool> footballEmote;
+        public static ConfigEntry<bool> sentinelEmote;
+        public static ConfigEntry<bool> bushWolfEmote;
+        public static ConfigEntry<bool> claySurgeonEmote;
+        public static ConfigEntry<bool> internEmote;
         internal static void Setup()
         {
             RandomEmoteFrequencyMinimum = EnemyInteractionsPlugin.instance.Config.Bind<float>("Settings", "Random Emote Frequency Minimum Time", 60, "Enemies will emote at random between the minimum and maximum amount of time specified in seconds");
@@ -56,6 +78,27 @@ namespace EnemyInteractions.DataStuffs
             earthLeviathanEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Misc", "Earth Leviathan can emote", true, "Lets the specified enemy emote (technically) with enemy interactions");
             baboonHawkEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Misc", "Baboon Hawk can emote", true, "Lets the specified enemy emote with enemy interactions");
 
+            shyGuyEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "Shy Guy can emote", true, "Lets the specified enemy emote with enemy interactions");
+            skibidiToiletEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "Skibidi Toilet can emote", true, "Lets the specified enemy emote with enemy interactions");
+            demoGorgonEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "DemoGorgon can emote", true, "Lets the specified enemy emote with enemy interactions");
+            peeperEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "Peeper can emote", true, "Lets the specified enemy emote with enemy interactions");
+            radMechEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Misc", "Old Bird can emote", true, "Lets the specified enemy emote with enemy interactions");
+            butlerEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Misc", "Butler can emote", true, "Lets the specified enemy emote with enemy interactions");
+            tulipSnakeEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Misc", "Tulip Snake can emote", true, "Lets the specified enemy emote with enemy interactions");
+            harpGhostEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "Harp Ghost can emote", true, "Lets the specified enemy emote with enemy interactions");
+            enforcerGhostEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "Enforcer Ghost can emote", true, "Lets the specified enemy emote with enemy interactions");
+            bagpipeGhostEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "Bagpipe Ghost can emote", true, "Lets the specified enemy emote with enemy interactions");
+            slendermanEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "Slenderman can emote", true, "Lets the specified enemy emote with enemy interactions");
+            redWoodGiantEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "Redwood Giant can emote", true, "Lets the specified enemy emote with enemy interactions");
+            driftWoodGiantEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "Driftwood Giant can emote", true, "Lets the specified enemy emote with enemy interactions");
+            foxyEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "Foxy can emote", true, "Lets the specified enemy emote with enemy interactions");
+            theFiendEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "The Fiend can emote", true, "Lets the specified enemy emote with enemy interactions");
+            sirenHeadEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "Siren Head can emote", true, "Lets the specified enemy emote with enemy interactions");
+            footballEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "Football can emote", true, "Lets the specified enemy emote with enemy interactions");
+            sentinelEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Modded Enemies", "Sentinel can emote", true, "Lets the specified enemy emote with enemy interactions");
+            bushWolfEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Misc", "Kidnapper Fox can emote", true, "Lets the specified enemy emote with enemy interactions");
+            claySurgeonEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Misc", "Barber can emote", true, "Lets the specified enemy emote with enemy interactions");
+            internEmote = EnemyInteractionsPlugin.instance.Config.Bind<bool>("Misc", "Interns can emote", true, "Lets the specified enemy emote with enemy interactions");
             RandomEmoteFrequencyMinimum.SettingChanged += FrequencyChange;
             RandomEmoteFrequencyMaximum.SettingChanged += FrequencyChange;
             OnKillEmoteChance.SettingChanged += FrequencyChange;

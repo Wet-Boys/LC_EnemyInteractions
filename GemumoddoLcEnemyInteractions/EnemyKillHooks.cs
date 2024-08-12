@@ -1,4 +1,5 @@
-﻿using EmotesAPI;
+﻿using BepInEx.Bootstrap;
+using EmotesAPI;
 using EnemyInteractions.Components;
 using EnemyInteractions.DataStuffs;
 using EnemyInteractions.Utils;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Analytics;
+using static UnityEngine.UIElements.StylePropertyAnimationSystem;
 
 namespace EnemyInteractions
 {
@@ -23,6 +25,10 @@ namespace EnemyInteractions
             _enemyAiStartHook = HookUtils.NewHook<MaskedPlayerEnemy>("Start", typeof(EnemyKillHooks), nameof(OnMaskedAiStart));
             _enemyAiStartHook = HookUtils.NewHook<EnemyAI>("Start", typeof(EnemyKillHooks), nameof(OnEnemyAiStart));
             _killPlayerHook = HookUtils.NewHook<PlayerControllerB>("KillPlayer", typeof(EnemyKillHooks), nameof(OnKillPlayer));
+            if (Chainloader.PluginInfos.ContainsKey("Szumi57.LethalInternship"))
+            {
+                InternCompat.SetupInternStartHook();
+            }
         }
         private static void OnMaskedAiStart(Action<MaskedPlayerEnemy> orig, MaskedPlayerEnemy self)
         {
@@ -71,61 +77,8 @@ namespace EnemyInteractions
                                 GameObject g = new GameObject();
                                 EmoteStopper stopper = g.AddComponent<EmoteStopper>();
                                 stopper.StartCoroutine(stopper.StopEmoteAfterTime(mapper, emote.maxDuration));
-                                mapper.props.Add(g);
-                                bool canEmote = true;
-                                switch (mapper.enemyController.enemyType.enemyName)
-                                {
-                                    case "Bunker Spider":
-                                        canEmote = EnemyInteractionSettings.bunkerSpiderEmote.Value;
-                                        break;
-                                    case "Hoarding bug":
-                                        canEmote = EnemyInteractionSettings.hoardingBugEmote.Value;
-                                        break;
-                                    case "Earth Leviathan":
-                                        canEmote = EnemyInteractionSettings.earthLeviathanEmote.Value;
-                                        break;
-                                    case "Crawler":
-                                        canEmote = EnemyInteractionSettings.thumperEmote.Value;
-                                        break;
-                                    case "Blob":
-                                        canEmote = EnemyInteractionSettings.hygrodereEmote.Value;
-                                        break;
-                                    case "Centipede":
-                                        canEmote = EnemyInteractionSettings.snareFleaEmote.Value;
-                                        break;
-                                    case "Nutcracker":
-                                        canEmote = EnemyInteractionSettings.nutcrackerEmote.Value;
-                                        break;
-                                    case "Baboon hawk":
-                                        canEmote = EnemyInteractionSettings.baboonHawkEmote.Value;
-                                        break;
-                                    case "Puffer":
-                                        canEmote = EnemyInteractionSettings.sporeLizardEmote.Value;
-                                        break;
-                                    case "Spring":
-                                        canEmote = EnemyInteractionSettings.coilHeadEmote.Value;
-                                        break;
-                                    case "Jester":
-                                        canEmote = EnemyInteractionSettings.jesterEmote.Value;
-                                        break;
-                                    case "Flowerman":
-                                        canEmote = EnemyInteractionSettings.brackenEmote.Value;
-                                        break;
-                                    case "Girl":
-                                        canEmote = EnemyInteractionSettings.ghostGirlEmote.Value;
-                                        break;
-                                    case "MouthDog":
-                                        canEmote = EnemyInteractionSettings.eyelessDogEmote.Value;
-                                        break;
-                                    case "ForestGiant":
-                                        canEmote = EnemyInteractionSettings.forestKeeperEmote.Value;
-                                        break;
-                                    case "Masked":
-                                        canEmote = EnemyInteractionSettings.maskedEmote.Value;
-                                        break;
-                                    default:
-                                        break;
-                                }
+                                mapper.props.Add(g); 
+                                bool canEmote = CanEmoteChecker.CanEmote(mapper.enemyController.enemyType.enemyName);
                                 if (canEmote)
                                 {
                                     CustomEmotesAPI.PlayAnimation(emote.animationName, mapper);
