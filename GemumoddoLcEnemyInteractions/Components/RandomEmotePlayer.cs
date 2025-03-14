@@ -60,14 +60,7 @@ namespace EnemyInteractions.Components
                 Logging.Error("mapper.enemyController.enemyType is null in PlaySpecificEmote.");
                 yield break;
             }
-            /*
-            // 检查 props 是否为空
-            if (mapper.props == null)
-            {
-                Logging.Error("mapper.props is null in PlaySpecificEmote.");
-                yield break;
-            }
-            */
+            
             // 检查其他条件
             if (personalAI.isEnemyDead || mapper.emoteSkeletonAnimator.enabled || emotePlayer.skipNextRandomPlay)
             {
@@ -142,7 +135,7 @@ namespace EnemyInteractions.Components
         }
         internal IEnumerator PlayEmotesRandomly()
         {
-            while (!personalAI.isEnemyDead) // 移除超时机制，确保协程持续运行
+            while (!personalAI.isEnemyDead) 
             {
                 float seconds = Random.Range(EnemyInteractionSettings.RandomEmoteFrequencyMinimum.Value, EnemyInteractionSettings.RandomEmoteFrequencyMaximum.Value);
                 yield return new WaitForSeconds(seconds);
