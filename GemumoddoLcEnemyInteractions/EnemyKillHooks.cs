@@ -35,7 +35,7 @@ namespace EnemyInteractions
             {
                 InternCompat.SetupInternStartHook();
             }
-            _enemyAiStartHook = HookUtils.NewHook<EnemyAI>("KillEnemy", typeof(EnemyKillHooks), "OnKillEnemy");
+            _enemyDeathHook = HookUtils.NewHook<EnemyAI>("KillEnemy", typeof(EnemyKillHooks), "OnKillEnemy");
             _caveDwellerTransform = HookUtils.NewHook<CaveDwellerAI>("StartTransformationAnim", typeof(EnemyKillHooks), "CaveDwellerStartTransformationAnim");
         }
         private static void OnMaskedAiStart(Action<MaskedPlayerEnemy> orig, MaskedPlayerEnemy self)
