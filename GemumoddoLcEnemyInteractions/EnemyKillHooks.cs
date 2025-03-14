@@ -1,4 +1,4 @@
-﻿using BepInEx.Bootstrap;
+using BepInEx.Bootstrap;
 using EmotesAPI;
 using EnemyInteractions.Components;
 using EnemyInteractions.DataStuffs;
@@ -11,24 +11,32 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Analytics;
-using static UnityEngine.UIElements.StylePropertyAnimationSystem;
 
 namespace EnemyInteractions
 {
     internal class EnemyKillHooks
     {
         private static Hook? _enemyAiStartHook;
+
+        private static Hook? _caveDwellerTransform;
+
         private static Hook? _killPlayerHook;
+
         private static Hook? _maskedAiStartHook;
+
+        private static Hook? _enemyDeathHook; 
+
         public static void InitHooks()
         {
-            _enemyAiStartHook = HookUtils.NewHook<MaskedPlayerEnemy>("Start", typeof(EnemyKillHooks), nameof(OnMaskedAiStart));
-            _enemyAiStartHook = HookUtils.NewHook<EnemyAI>("Start", typeof(EnemyKillHooks), nameof(OnEnemyAiStart));
-            _killPlayerHook = HookUtils.NewHook<PlayerControllerB>("KillPlayer", typeof(EnemyKillHooks), nameof(OnKillPlayer));
+            _maskedAiStartHook = HookUtils.NewHook<MaskedPlayerEnemy>("Start", typeof(EnemyKillHooks), "OnMaskedAiStart");
+            _enemyAiStartHook = HookUtils.NewHook<EnemyAI>("Start", typeof(EnemyKillHooks), "OnEnemyAiStart");
+            _killPlayerHook = HookUtils.NewHook<PlayerControllerB>("KillPlayer", typeof(EnemyKillHooks), "OnKillPlayer");
             if (Chainloader.PluginInfos.ContainsKey("Szumi57.LethalInternship"))
             {
                 InternCompat.SetupInternStartHook();
             }
+            _enemyAiStartHook = HookUtils.NewHook<EnemyAI>("KillEnemy", typeof(EnemyKillHooks), "OnKillEnemy");
+            _caveDwellerTransform = HookUtils.NewHook<CaveDwellerAI>("StartTransformationAnim", typeof(EnemyKillHooks), "CaveDwellerStartTransformationAnim");
         }
         private static void OnMaskedAiStart(Action<MaskedPlayerEnemy> orig, MaskedPlayerEnemy self)
         {
@@ -93,6 +101,38 @@ namespace EnemyInteractions
                 DebugClass.Log($"couldn't play on kill effects properly for EnemyInteractions");
             }
             orig(self, bodyVelocity, spawnBody, causeOfDeath, deathAnimation, positionOffset);
+        }
+
+        private static void OnKillEnemy(Action<EnemyAI, bool> orig, EnemyAI self, bool destroy = false)
+        {
+            orig(self, destroy);
+            if (!destroy && EnemyInteractionsPlugin.BadAssCompanyPresent && EnemyInteractionSettings.emoteOnDeath.Value && BoneMapper.playersToMappers.ContainsKey(self.gameObject))
+            {
+                BoneMapper boneMapper = BoneMapper.playersToMappers[self.gameObject];
+                boneMapper.preserveProps = true;
+                EnemyEmote enemyEmote = new EnemyEmote("com.weliveinasociety.badasscompany__I NEED A MEDIC BAG", 5.5f);
+                GameObject gameObject = new GameObject();
+                EmoteStopper emoteStopper = gameObject.AddComponent<EmoteStopper>();
+                emoteStopper.StartCoroutine(emoteStopper.StopEmoteAfterTime(boneMapper, enemyEmote.maxDuration));
+                boneMapper.props.Add(gameObject);
+                if (CanEmoteChecker.CanEmote(boneMapper.enemyController.enemyType.enemyName))
+                {
+                    CustomEmotesAPI.PlayAnimation(enemyEmote.animationName, boneMapper);
+                }
+            }
+        }
+        private static void CaveDwellerStartTransformationAnim(Action<CaveDwellerAI> orig, CaveDwellerAI self)
+        {
+            if ((bool)self.GetComponent<RandomEmotesStarter>())
+            {
+                CustomEmotesAPI.localMapper.StartCoroutine(SetupManEaterAdult(self));
+            }
+            orig(self);
+        }
+        private static IEnumerator SetupManEaterAdult(CaveDwellerAI self)
+        {
+            yield return new WaitForSeconds(2.5f);
+            self.gameObject.GetComponent<RandomEmotesStarter>().Setup(self);
         }
     }
 }
