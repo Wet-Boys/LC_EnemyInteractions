@@ -1,4 +1,4 @@
-﻿using EmotesAPI;
+using EmotesAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,29 +9,35 @@ namespace EnemyInteractions.Utils
 {
     internal class GetEnemies
     {
+        private static readonly object _lock = new object();
+
         internal static List<GameObject> ReturnAllEnemiesInRange(GameObject self, float range)
         {
-            try
+            lock (_lock)
             {
-                if (CustomEmotesAPI.localMapper.isServer)
+                try
                 {
-                    Collider[] hitColliders = Physics.OverlapSphere(self.transform.position, range);
-                    List<GameObject> hitEnemies = new List<GameObject>();
-                    foreach (var hitCollider in hitColliders)
+                    if (CustomEmotesAPI.localMapper.isServer)
                     {
-                        EnemyAI enemyAi = hitCollider.GetComponentInParent<EnemyAI>();
-                        if (enemyAi is not null && !hitEnemies.Contains(enemyAi.gameObject))
+                        Collider[] hitColliders = Physics.OverlapSphere(self.transform.position, range);
+                        List<GameObject> hitEnemies = new List<GameObject>();
+                        foreach (var hitCollider in hitColliders)
                         {
-                            hitEnemies.Add(enemyAi.gameObject);
+                            EnemyAI enemyAi = hitCollider.GetComponentInParent<EnemyAI>();
+                            if (enemyAi is not null && !hitEnemies.Contains(enemyAi.gameObject))
+                            {
+                                hitEnemies.Add(enemyAi.gameObject);
+                            }
                         }
+                        return hitEnemies;
                     }
-                    return hitEnemies;
                 }
+                catch (Exception ex)
+                {
+                    Logging.Error($"Exception in ReturnAllEnemiesInRange: {ex.Message}");
+                }
+                return [];
             }
-            catch (Exception)
-            {
-            }
-            return [];
         }
     }
 }
