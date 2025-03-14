@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -17,12 +17,8 @@ namespace EnemyInteractions.Components
         }
         public IEnumerator SetupRandomEmotes(EnemyAI self)
         {
-            yield return new WaitForEndOfFrame();
-            yield return new WaitForEndOfFrame();
-            yield return new WaitForEndOfFrame();
-            yield return new WaitForEndOfFrame();
-            yield return new WaitForEndOfFrame();//just to be safe lol
-            if (BoneMapper.playersToMappers.ContainsKey(self.gameObject))
+            yield return new WaitForSeconds(0.1f);
+            if (BoneMapper.playersToMappers?.ContainsKey(self.gameObject) == true)
             {
                 BoneMapper b = BoneMapper.playersToMappers[self.gameObject];
                 RandomEmotePlayer component = b.gameObject.AddComponent<RandomEmotePlayer>();
