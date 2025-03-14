@@ -1,10 +1,7 @@
-﻿using System;
-using System.Reflection;
 using BepInEx;
 using BepInEx.Bootstrap;
 using EnemyInteractions.DataStuffs;
 using EnemyInteractions.Utils;
-using MonoMod.RuntimeDetour;
 
 namespace EnemyInteractions;
 
@@ -14,16 +11,28 @@ namespace EnemyInteractions;
 public class EnemyInteractionsPlugin : BaseUnityPlugin
 {
     public const string ModGuid = "com.gemumoddo.enemyinteractions";
+
     public const string ModName = "Enemy Interactions";
-    public const string ModVersion = "1.1.6";
+
+    public const string ModVersion = "1.2.0";
+
     public static EnemyInteractionsPlugin instance;
+
+    internal static bool BadAssCompanyPresent;
+
     private void Awake()
     {
         instance = this;
+
         Logging.SetLogSource(Logger);
+
         EnemyKillHooks.InitHooks();
+
         EnemyInteractionSettings.Setup();
-        if (Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.badasscompany"))
+
+        BadAssCompanyPresent = Chainloader.PluginInfos.ContainsKey("com.weliveinasociety.badasscompany");
+
+        if (BadAssCompanyPresent && EnemyInteractionSettings.useBadAssCompany.Value)
         {
             EmoteOptions.onKillEmotes.Add(new EnemyEmote("com.weliveinasociety.badasscompany__Default Dance", 30));
             EmoteOptions.onKillEmotes.Add(new EnemyEmote("com.weliveinasociety.badasscompany__Take The L", 3));
