@@ -106,7 +106,7 @@ namespace EnemyInteractions
         private static void OnKillEnemy(Action<EnemyAI, bool> orig, EnemyAI self, bool destroy = false)
         {
             orig(self, destroy);
-            if (!destroy && EnemyInteractionsPlugin.BadAssCompanyPresent && EnemyInteractionSettings.emoteOnDeath.Value && BoneMapper.playersToMappers.ContainsKey(self.gameObject))
+            if (!destroy && EnemyInteractionsPlugin.BadAssCompanyPresent && EnemyInteractionSettings.emoteOnDeath.Value && BoneMapper.playersToMappers.ContainsKey(self.gameObject)&& EnemyInteractionSettings.useBadAssCompany.Value)
             {
                 BoneMapper boneMapper = BoneMapper.playersToMappers[self.gameObject];
                 boneMapper.preserveProps = true;
