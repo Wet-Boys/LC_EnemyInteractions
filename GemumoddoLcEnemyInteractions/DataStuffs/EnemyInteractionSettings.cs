@@ -151,7 +151,7 @@ namespace EnemyInteractions.DataStuffs
             ClampChance();
             if (Chainloader.PluginInfos.ContainsKey("ainavt.lc.lethalconfig"))
             {
-                LethalConfigSupport.LethalConfig();
+                LethalConfig();
             }
         }
 
@@ -165,6 +165,14 @@ namespace EnemyInteractions.DataStuffs
             RandomEmoteFrequencyMaximum.Value = Mathf.Clamp(RandomEmoteFrequencyMaximum.Value, 2f, 86400f);
             RandomEmoteFrequencyMinimum.Value = Mathf.Clamp(RandomEmoteFrequencyMinimum.Value, 1f, RandomEmoteFrequencyMaximum.Value);
             OnKillEmoteChance.Value = Mathf.Clamp(OnKillEmoteChance.Value, 0f, 100f);
+        }
+        private static void LethalConfig()
+        {
+            LethalConfigManager.SetModDescription("Enemies can emote too!");
+
+            LethalConfigManager.AddConfigItem(new FloatSliderConfigItem(RandomEmoteFrequencyMinimum, new FloatSliderOptions { Min = 0f, Max = 600f, RequiresRestart = false }));
+            LethalConfigManager.AddConfigItem(new FloatSliderConfigItem(RandomEmoteFrequencyMaximum, new FloatSliderOptions { Min = 0f, Max = 600f, RequiresRestart = false }));
+            LethalConfigManager.AddConfigItem(new FloatSliderConfigItem(OnKillEmoteChance, new FloatSliderOptions { Min = 0, Max = 100, RequiresRestart = false }));
         }
     }
 }
